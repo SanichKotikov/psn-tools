@@ -86,7 +86,7 @@ export default class GameCtrl
 
     onClickAdd()
     {
-        let input = prompt('Input Game ID');
+        let input = window.prompt('Input Game ID');
 
         if (input)
         {

@@ -9,9 +9,7 @@ Using: [Chart.js](http://www.chartjs.org/) (simple HTML5 Charts using the canvas
 ### Build for packaging
 
 ```bash
-$ npm install
-$ bower install
-$ grunt dist
+$ npm run build
 ```
 
 ### License

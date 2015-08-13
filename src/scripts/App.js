@@ -10,6 +10,7 @@ let GameCtrl = require('./dist/scripts/GameCtrl.js');
 global.window = window;
 global.document = window.document;
 global.DOMParser = DOMParser;
+global.XMLSerializer = XMLSerializer;
 
 global.gui = gui;
 global.https = https;
