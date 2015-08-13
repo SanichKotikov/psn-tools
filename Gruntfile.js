@@ -6,12 +6,36 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
-        clean: ['dist/'],
+        clean: {
+            dev: ['dist/'],
+            build: ['temp']
+        },
 
         copy: {
-            main: {
+            dev: {
                 src: 'bower_components/Chart.js/Chart.min.js',
                 dest: 'dist/lib/Chart.min.js'
+            },
+            build: {
+                files: [
+                    {
+                        expand: true,
+                        src: ['dist/**'],
+                        dest: 'temp/'
+                    },
+                    {
+                        src: 'images/tray.png',
+                        dest: 'temp/images/tray.png'
+                    },
+                    {
+                        src: 'index.html',
+                        dest: 'temp/index.html'
+                    },
+                    {
+                        src: 'package.json',
+                        dest: 'temp/package.json'
+                    }
+                ]
             }
         },
 
@@ -92,10 +116,20 @@ module.exports = function(grunt) {
                 files: ['src/scripts/**/*.js'],
                 tasks: ['babel:dev']
             }
+        },
+
+        nwjs: {
+            options: {
+                platforms: ['osx64'],
+                buildDir: './builds',
+                cacheDir: './cache',
+                macIcns: './images/nw.icns'
+            },
+            src: ['./temp/**/*']
         }
     });
 
-    grunt.registerTask('default', ['watch']);
-    grunt.registerTask('dev',     ['clean', 'copy', 'sass:dev', 'babel:dev']);
-    grunt.registerTask('dist',    ['clean', 'copy', 'sass:dist', 'babel:dist', 'uglify']);
+    grunt.registerTask('default', ['clean:dev', 'copy:dev', 'sass:dev', 'babel:dev', 'watch']);
+    grunt.registerTask('dev',     ['clean:dev', 'copy:dev', 'sass:dev', 'babel:dev']);
+    grunt.registerTask('build',   ['clean:dev', 'copy:dev', 'sass:dist', 'babel:dist', 'uglify', 'copy:build', 'nwjs', 'clean:build']);
 };
