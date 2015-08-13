@@ -1,0 +1,6 @@
+{
+  "name": "psnTools",
+  "dependencies": {
+    "Chart.js": "~1.0.2"
+  }
+}

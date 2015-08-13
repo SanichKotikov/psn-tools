@@ -1,0 +1,12 @@
+@function rem($size) {
+    $list: ();
+    @each $val in $size {
+        @if ($val == 0) { $list: append($list, $val); }
+        @else { $list: append($list, ($val / 16) * 1rem); }
+    }
+    @return $list;
+}
+
+@function em($px, $context: 16) {
+    @return ($px / $context) * 1em;
+}

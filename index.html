@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>psnTools</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:300,100' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="dist/styles/styles.css">
+</head>
+<body>
+    <!-- APP -->
+    <div class="wrapper">
+        <div id="game-list-wrapper" class="game-list__wrapper">
+            <div id="game-list" class="game-list"></div>
+            <div class="game-list__bar">
+                <div class="btn add-btn" data-id="add">+</div>
+                <div class="btn update-now" data-id="update">Update Now</div>
+            </div>
+        </div>
+        <div id="game-info" class="game-info"></div>
+    </div>
+    <!-- XHR counter -->
+    <div id="debug" class="debug">0</div>
+
+    <!-- templates -->
+    <div id="templates" style="display: none;">
+
+        <!-- game list item -->
+        <div id="gameListItem">
+            <div id="{id}" class="game-list__item">
+                <div class="game-list__item-title">{name}</div>
+                <div class="game-list__item-price">
+                    {price}
+                    <div class="game-list__item-plus">{plusPrice}</div>
+                </div>
+                <div class="game-list__item-del">+</div>
+            </div>
+        </div>
+
+        <!--<div class="game-info__platform">{platform}</div>-->
+
+        <!-- game info -->
+        <div id="gameInfo">
+            <div>
+                <div class="game-info__name">{name}</div>
+                <div class="game-info__wrapper">
+                    <div class="game-info__cover">
+                        <img class="game-info__cover-img" {src}>
+                    </div>
+                    <div class="game-info__desc">
+                        <div>{desc}</div>
+                    </div>
+                </div>
+                <canvas id="history" height="160" width="400"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- scripts -->
+    <script src="dist/lib/Chart.min.js"></script>
+    <script src="dist/scripts/App.js"></script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+@charset "UTF-8";
+
+@import "functions";
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+*:focus {
+    outline: none;
+}
+
+
+html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-size: 16px;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Roboto', sans-serif;
+    font-size: rem(14);
+    font-weight: 300;
+    line-height: 1.2;
+    color: #333;
+    text-rendering: optimizeLegibility;
+    background: #eee;
+    -webkit-backface-visibility: hidden;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+
+
+
+// ******************************
+//     GENERAL
+// ******************************
+
+.btn {
+    display: inline-block;
+    padding: 6px 10px;
+    cursor: pointer;
+    border: 1px solid #aaa;
+}
+
+.wrapper {
+    display: flex;
+    height: 100%;
+    flex-flow: row wrap;
+}
+
+
+
+
+// ******************************
+//     GAME LIST
+// ******************************
+
+.game-list {
+    width: 100%;
+    padding: rem(20 20 40);
+    overflow-x: hidden;
+    overflow-y: scroll;
+    flex: 1;
+
+    &__wrapper {
+        display: flex;
+        width: rem(260);
+        color: #ccc;
+        background: #282c34;
+        flex: 0 1 auto;
+        flex-flow: column wrap;
+    }
+
+    &__item {
+        position: relative;
+        display: block;
+        cursor: pointer;
+
+        & + & {
+            margin-top: rem(16);
+        }
+
+        &:hover {
+            color: #eee;
+        }
+    }
+
+    &__item-title {
+        width: 88%;
+        margin-bottom: rem(2);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        pointer-events: none;
+    }
+
+    &__item-price {
+        font-size: rem(12);
+        pointer-events: none;
+    }
+
+    &__item-plus {
+        display: inline-block;
+        padding: rem(2 4);
+        margin-left: rem(6);
+        line-height: 1;
+        pointer-events: none;
+        background: #b03500;
+        border-radius: 3px;
+
+        &:empty {
+            display: none;
+        }
+    }
+
+    &__item-del {
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: none;
+        width: rem(20);
+        height: rem(20);
+        line-height: rem(20);
+        text-align: center;
+        cursor: pointer;
+        background: rgba(255, 255, 255, .2);
+        border-radius: 50%;
+        transform: rotate(45deg);
+
+        &:hover {
+            background: rgba(255, 255, 255, .3);
+        }
+    }
+
+    &__item:hover &__item-del {
+        display: block;
+    }
+
+    &__bar {
+        width: 100%;
+        height: 40px;
+        background: rgba(255, 255, 255, .1);
+        flex: 0 1 auto;
+
+        .btn {
+            height: rem(40);
+            padding: 0;
+            line-height: rem(40);
+            text-align: center;
+            background: transparent;
+            border: 0;
+
+            &:hover {
+                background: rgba(255, 255, 255, .1);
+            }
+        }
+
+        .add-btn {
+            width: rem(40);
+            font-size: rem(16);
+        }
+
+        .update-now {
+            float: right;
+            padding: 0 16px;
+        }
+    }
+}
+
+
+
+
+// ******************************
+//     GAME INFO
+// ******************************
+
+.game-info {
+    position: relative;
+    padding: rem(16 20 40);
+    flex: 1;
+
+    &__name {
+        margin-bottom: rem(16);
+        font-size: rem(24);
+        font-weight: 100;
+    }
+
+    &__wrapper {
+        display: flex;
+        height: rem(194);
+        margin-bottom: rem(10);
+        flex-flow: row wrap;
+    }
+
+    &__cover {
+        width: rem(160);
+        flex: 0 1 auto;
+    }
+
+    &__cover-img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    &__desc {
+        padding: rem(0 0 0 14);
+        overflow-x: hidden;
+        overflow-y: scroll;
+        flex: 1;
+    }
+}
+
+
+
+
+// ******************************
+//     OTHER
+// ******************************
+
+.loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.debug {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: rem(6);
+    font-size: rem(10);
+    color: #fff;
+    background: #666;
+    border-top-left-radius: rem(3);
+    opacity: .3;
+}
