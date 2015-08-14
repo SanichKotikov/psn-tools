@@ -1,7 +1,7 @@
 {
   "main": "index.html",
   "name": "psnTools",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Desktop application for tracking prices in PSN",
   "author": "Sanich <sancho@cdrpro.ru>",
   "license": "GPL-3.0",

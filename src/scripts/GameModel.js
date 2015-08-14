@@ -21,6 +21,7 @@ export default class GameModel
     update(json)
     {
         let sku = json.default_sku;
+        let hasPlusReward = false;
 
         this.name = json.name;
         this.price = sku.price;
@@ -33,10 +34,13 @@ export default class GameModel
                 if (reward.isPlus)
                 {
                     this.plusPrice = reward.price;
+                    hasPlusReward = true;
                     break;
                 }
             }
         }
+
+        if (!hasPlusReward) this.plusPrice = null;
 
         if (this.history.length === 0)
         {

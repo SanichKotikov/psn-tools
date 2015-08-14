@@ -32,7 +32,7 @@ class App
     {
         console.log(gui.App.dataPath);
 
-        this.initOsMenu();
+        if (process.platform === 'darwin') this.initOsMenu();
         this.initOsTray();
 
         this.win = gui.Window.get();
