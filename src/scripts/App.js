@@ -5,7 +5,9 @@ let https = require('https');
 let fs = require('fs');
 let path = require('path');
 
+let Template = require('./dist/scripts/Template.js');
 let GameCtrl = require('./dist/scripts/GameCtrl.js');
+let Notification = require('./dist/scripts/Notification.js');
 
 global.window = window;
 global.document = window.document;
@@ -26,7 +28,9 @@ class App
     PSN_API_PARAMS = '?size=30&gkb=1&geoCountry=RU';
 
     win;
+    template;
     gameCtrl;
+    notification;
 
     constructor()
     {
@@ -40,7 +44,9 @@ class App
         gui.App.on('reopen', () => this.show());
         this.win.on('close', () => this.hide());
 
+        this.template = new Template();
         this.gameCtrl = new GameCtrl();
+        this.notification = new Notification();
     }
 
     initOsMenu()

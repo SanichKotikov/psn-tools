@@ -103,7 +103,15 @@ export default class GamesDataXML
         let xmlText = (new XMLSerializer()).serializeToString(xml);
 
         fs.writeFile(this.APP_DATA_FILE, xmlText, error => {
-            if (error) console.log(error);
+            if (error)
+            {
+                console.log(error);
+
+                APP.notification.show({
+                    title: 'Error',
+                    message: error.message
+                });
+            }
         });
     }
 }

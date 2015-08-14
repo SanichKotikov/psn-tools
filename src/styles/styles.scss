@@ -231,6 +231,38 @@ body {
 
 
 // ******************************
+//     NOTIFICATION
+// ******************************
+
+.notification {
+    position: absolute;
+    top: rem(10);
+    right: rem(-300);
+    width: rem(240);
+    padding: rem(16);
+    color: #ccc;
+    background: #282c34;
+    border-radius: 3px;
+    transition: right .7s ease;
+
+    &.display {
+        right: rem(10);
+    }
+
+    &__title {
+        text-transform: uppercase;
+    }
+
+    &__message {
+        margin: 6px 0;
+        font-size: 12px;
+    }
+}
+
+
+
+
+// ******************************
 //     OTHER
 // ******************************
 

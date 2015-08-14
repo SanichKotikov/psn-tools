@@ -14,7 +14,6 @@ export default class GameModel
         this.name = data.name || null;
         this.price = data.price || null;
         this.plusPrice = data.plusPrice || null;
-
         this.history = data.history || [];
     }
 

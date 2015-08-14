@@ -86,7 +86,7 @@ export default class GameCtrl
 
     onClickAdd()
     {
-        let input = window.prompt('Input Game ID');
+        let input = window.prompt('Input Game PSN ID');
 
         if (input)
         {
@@ -95,7 +95,10 @@ export default class GameCtrl
                     this.list_el.appendChild(game.render());
                     this.gameList.toXml();
                 }, () => {
-                    window.alert('This game already added!');
+                    APP.notification.show({
+                        title: 'Alert',
+                        message: 'This game already added!'
+                    });
                 });
         }
     }

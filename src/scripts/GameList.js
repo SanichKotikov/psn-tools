@@ -52,9 +52,18 @@ export default class GameList
                 this.items.push(newGame);
 
                 newGame.getData().then(() => {
+
                     newGame.updateModel();
                     resolve(newGame);
-                }, error => console.error(error.message, error));
+
+                }, error => {
+                    console.error(error.message, error);
+
+                    APP.notification.show({
+                        title: 'Error',
+                        message: error.message
+                    });
+                });
             }
         });
     }

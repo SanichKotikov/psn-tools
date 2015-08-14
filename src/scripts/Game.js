@@ -1,7 +1,6 @@
 'use strict';
 
 let GameModel = require('./GameModel.js');
-let Template = require('./Template.js');
 
 export default class Game
 {
@@ -9,12 +8,9 @@ export default class Game
     model;
     json;
 
-    template;
-
     constructor(data)
     {
         this.model = new GameModel(data);
-        this.template = new Template();
         this.json = {};
     }
 
@@ -61,7 +57,7 @@ export default class Game
 
     render()
     {
-        this.el = this.template.render('#gameListItem', {
+        this.el = APP.template.render('#gameListItem', {
             id: this.model.id,
             name: this.model.name,
             price: this.model.price !== null ? this.formatePrice(this.model.price) : '',
@@ -82,7 +78,7 @@ export default class Game
         //    });
         //}
 
-        return this.template.render('#gameInfo', {
+        return APP.template.render('#gameInfo', {
             //platform: '',
             name: this.model.name,
             src: `src="${this.json.images[0].url}"`,
