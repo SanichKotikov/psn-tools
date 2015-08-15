@@ -5,6 +5,9 @@ export default class GamesWatcher
     INTERVAL_TIME = 1000 * 60 * 60 * 24; // 24h
     CHECK_INTERVAL_TIME = 1000 * 60 * 60 * 2; // 2h
 
+    DELAY_MIN = 500; //ms
+    DELAY_MAX = 3000; //ms
+
     gameList;
     interval;
 
@@ -14,6 +17,11 @@ export default class GamesWatcher
         this.updateData();
 
         this.interval = setInterval(() => this.updateData(), this.CHECK_INTERVAL_TIME);
+    }
+
+    gerRandomDelay()
+    {
+        return parseInt(Math.random() * (this.DELAY_MAX - this.DELAY_MIN) + this.DELAY_MIN, 10);
     }
 
     updateData(force = false)
@@ -68,7 +76,7 @@ export default class GamesWatcher
                         }
                     });
 
-                }, 1500 * (i + 1));
+                }, this.gerRandomDelay() * (i + 1));
             }
         });
     }
