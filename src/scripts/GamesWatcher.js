@@ -18,40 +18,59 @@ export default class GamesWatcher
 
     updateData(force = false)
     {
-        let nowTime = (new Date).getTime();
-        let lastUpdate = window.localStorage.lastUpdateTime || null;
+        return new Promise(resolve => {
 
-        if (!force && lastUpdate != null && (nowTime - parseInt(lastUpdate, 10)) < this.INTERVAL_TIME)
-        {
-            console.log('waiting...');
-            return;
-        }
+            let nowTime = (new Date).getTime();
+            let lastUpdate = window.localStorage.lastUpdateTime || null;
 
-        this.updateLastTime();
-        let games = this.gameList.items;
+            if (!force && lastUpdate != null && (nowTime - parseInt(lastUpdate, 10)) < this.INTERVAL_TIME)
+            {
+                console.log('waiting...');
+                return;
+            }
 
-        for (let i = 0; i < games.length; i++)
-        {
-            let game = games[i];
-            let oldPrice = parseInt(game.model.price, 10);
-            let oldPlusPrice = (game.model.plusPrice != null) ? parseInt(game.model.plusPrice, 10) : null;
+            this.updateLastTime();
+            let games = this.gameList.items;
+            let gamesCount = games.length;
 
-            game.getData().then(() => {
+            for (let i = 0; i < gamesCount; i++)
+            {
+                window.setTimeout(() => {
 
-                game.updateModel();
+                    let game = games[i];
+                    let oldPrice = game.model.price;
+                    let oldPlusPrice = (game.model.plusPrice != null) ? game.model.plusPrice : null;
 
-                if (oldPrice !== game.model.price || oldPlusPrice !== game.model.plusPrice)
-                {
-                    game.pushHistory();
-                    this.gameList.toXml();
+                    game.getData().then(() => {
 
-                    new Notification('Price updated!', {
-                        icon: null,
-                        body: `Game ${game.model.name} price updated!`
+                        game.updateModel();
+
+                        if (oldPrice !== game.model.price || oldPlusPrice !== game.model.plusPrice)
+                        {
+                            game.pushHistory();
+                            this.gameList.toXml();
+
+                            new Notification('Price updated!', {
+                                icon: null,
+                                body: `Game ${game.model.name} price updated!`
+                            });
+                        }
+
+                        // if last game
+                        if ((gamesCount - 1) === i)
+                        {
+                            APP.notification.show({
+                                title: 'GamesWatcher',
+                                message: 'All games have been updated!'
+                            });
+
+                            resolve();
+                        }
                     });
-                }
-            });
-        }
+
+                }, 1500 * (i + 1));
+            }
+        });
     }
 
     updateLastTime()

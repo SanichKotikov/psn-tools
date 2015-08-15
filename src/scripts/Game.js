@@ -50,9 +50,42 @@ export default class Game
         this.model.pushHistory();
     }
 
-    formatePrice(num)
+    formatPrice(num)
     {
         return (num == null) ? '–' : (num / 100) + ' \u20bd';
+    }
+
+    formatPercent()
+    {
+        let length = this.model.history.length;
+
+        if (length > 1)
+        {
+            let previous = this.model.history[length - 2];
+
+            let price = this.model.price !== null ? this.model.price : 0;
+            let plus = this.model.plusPrice !== null ? this.model.plusPrice : 0;
+
+            let oldPrice = previous.price !== null ? previous.price : 0;
+            let oldPlus = previous.plusPrice !== null ? previous.plusPrice : 0;
+
+            let priceDiff = '–';
+            let plusDiff = '–';
+
+            if (price != oldPrice)
+            {
+                priceDiff = parseInt(((oldPrice - price) / oldPrice) * 100, 10) * -1 + '%';
+            }
+
+            if (plus != oldPlus)
+            {
+                plusDiff = parseInt(((oldPlus - plus) / oldPlus) * 100, 10) * -1 + '%';
+            }
+
+            return `( ${priceDiff} / ${plusDiff} )`;
+        }
+
+        return '';
     }
 
     render()
@@ -60,8 +93,9 @@ export default class Game
         this.el = APP.template.render('#gameListItem', {
             id: this.model.id,
             name: this.model.name,
-            price: this.model.price !== null ? this.formatePrice(this.model.price) : '',
-            plusPrice: this.model.plusPrice !== null ? this.formatePrice(this.model.plusPrice) : ''
+            price: this.model.price !== null ? this.formatPrice(this.model.price) : '',
+            plusPrice: this.model.plusPrice !== null ? this.formatPrice(this.model.plusPrice) : '',
+            percent: this.formatPercent()
         });
 
         return this.el;

@@ -7,7 +7,7 @@ let path = require('path');
 
 let Template = require('./dist/scripts/Template.js');
 let GameCtrl = require('./dist/scripts/GameCtrl.js');
-let Notification = require('./dist/scripts/Notification.js');
+let NotificationCtrl = require('./dist/scripts/Notification.js');
 
 global.window = window;
 global.document = window.document;
@@ -18,6 +18,7 @@ global.gui = gui;
 global.https = https;
 global.fs = fs;
 global.path = path;
+global.Notification = Notification;
 
 global.Chart = Chart;
 
@@ -46,7 +47,7 @@ class App
 
         this.template = new Template();
         this.gameCtrl = new GameCtrl();
-        this.notification = new Notification();
+        this.notification = new NotificationCtrl();
     }
 
     initOsMenu()

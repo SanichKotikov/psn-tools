@@ -12,8 +12,8 @@ export default class GameModel
     {
         this.id = data.id || null;
         this.name = data.name || null;
-        this.price = data.price || null;
-        this.plusPrice = data.plusPrice || null;
+        this.price = data.price ? parseInt(data.price, 10) : null;
+        this.plusPrice = data.plusPrice ? parseInt(data.plusPrice, 10) : null;
         this.history = data.history || [];
     }
 
