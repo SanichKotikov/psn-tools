@@ -120,9 +120,10 @@ module.exports = function(grunt) {
 
         nwjs: {
             options: {
-                platforms: ['osx64'],
+                platforms: ['osx', 'win'],
                 buildDir: './builds',
                 cacheDir: './cache',
+                winIco: './images/nw.ico',
                 macIcns: './images/nw.icns'
             },
             src: ['./temp/**/*']
