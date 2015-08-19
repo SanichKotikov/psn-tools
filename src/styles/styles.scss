@@ -251,6 +251,7 @@ body {
     }
 
     &__cover {
+        position: relative;
         width: rem(160);
         flex: 0 1 auto;
     }
@@ -259,6 +260,21 @@ body {
         display: block;
         width: 100%;
         height: auto;
+    }
+
+    &__timer {
+        position: absolute;
+        top: rem(8);
+        left: rem(8);
+        padding: rem(4 6);
+        font-size: rem(16);
+        line-height: 1;
+        background: rgba(255, 255, 255, .8);
+        border-radius: 2px;
+
+        &:empty {
+            display: none;
+        }
     }
 
     &__desc {
