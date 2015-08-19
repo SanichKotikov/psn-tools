@@ -28,11 +28,16 @@
         <!-- game list item -->
         <div id="gameListItem">
             <div id="{id}" class="game-list__item">
-                <div class="game-list__item-title">{name}</div>
-                <div class="game-list__item-price">
-                    <span>{price}</span>
-                    <span class="game-list__item-plus">{plusPrice}</span>
-                    <span class="game-list__item-percent">{percent}</span>
+                <div class="game-list__item-cover">
+                    <img class="game-list__item-cover-img" {cover}>
+                </div>
+                <div class="game-list__item-data">
+                    <div class="game-list__item-title">{name}</div>
+                    <div class="game-list__item-price">
+                        <span>{price}</span>
+                        <span class="game-list__item-plus">{plusPrice}</span>
+                        <span class="game-list__item-percent">{percent}</span>
+                    </div>
                 </div>
                 <div class="game-list__item-del">+</div>
             </div>

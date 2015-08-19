@@ -56,7 +56,6 @@ export default class GamesWatcher
                         if (oldPrice !== game.model.price || oldPlusPrice !== game.model.plusPrice)
                         {
                             game.pushHistory();
-                            this.gameList.toXml();
 
                             new Notification('Price updated!', {
                                 icon: null,
@@ -71,6 +70,9 @@ export default class GamesWatcher
                                 title: 'GamesWatcher',
                                 message: 'All games have been updated!'
                             });
+
+                            // update all games in any case
+                            this.gameList.toXml();
 
                             resolve();
                         }

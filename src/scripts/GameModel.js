@@ -4,6 +4,7 @@ export default class GameModel
 {
     id;
     name;
+    cover;
     price;
     plusPrice;
     history;
@@ -12,6 +13,7 @@ export default class GameModel
     {
         this.id = data.id || null;
         this.name = data.name || null;
+        this.cover = data.cover || null;
         this.price = data.price ? parseInt(data.price, 10) : null;
         this.plusPrice = data.plusPrice ? parseInt(data.plusPrice, 10) : null;
         this.history = data.history || [];
@@ -23,6 +25,7 @@ export default class GameModel
         let hasPlusReward = false;
 
         this.name = json.name;
+        this.cover = json.images[0].base64;
         this.price = sku.price;
 
         if (sku.rewards && sku.rewards.length)

@@ -1,6 +1,7 @@
 'use strict';
 
 let gui = require('nw.gui');
+let http = require('http');
 let https = require('https');
 let fs = require('fs');
 let path = require('path');
@@ -8,17 +9,21 @@ let path = require('path');
 let Template = require('./dist/scripts/Template.js');
 let GameCtrl = require('./dist/scripts/GameCtrl.js');
 let NotificationCtrl = require('./dist/scripts/Notification.js');
+let ImageResizer = require('./dist/scripts/modules/ImageResizer.js');
 
 global.window = window;
 global.document = window.document;
 global.DOMParser = DOMParser;
 global.XMLSerializer = XMLSerializer;
+global.Image = Image;
 
 global.gui = gui;
+global.http = http;
 global.https = https;
 global.fs = fs;
 global.path = path;
 global.Notification = Notification;
+global.Buffer = Buffer;
 
 global.Chart = Chart;
 
@@ -32,6 +37,7 @@ class App
     template;
     gameCtrl;
     notification;
+    imageResizer;
 
     constructor()
     {
@@ -48,6 +54,12 @@ class App
         this.template = new Template();
         this.gameCtrl = new GameCtrl();
         this.notification = new NotificationCtrl();
+        this.imageResizer = new ImageResizer({
+            type: 'image/webp',
+            quality: 0.1,
+            width: 64,
+            height: 64
+        });
     }
 
     initOsMenu()

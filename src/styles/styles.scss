@@ -93,8 +93,9 @@ body {
 
     &__item {
         position: relative;
-        display: block;
+        display: flex;
         cursor: pointer;
+        flex-flow: row wrap;
 
         & + & {
             margin-top: rem(16);
@@ -103,6 +104,28 @@ body {
         &:hover {
             color: #eee;
         }
+    }
+
+    &__item-cover {
+        width: rem(32);
+        height: rem(32);
+        overflow: hidden;
+        pointer-events: none;
+        background: rgba(255, 255, 255, .1);
+        border-radius: rem(2);
+        flex: 0 1 auto;
+    }
+
+    &__item-cover-img {
+        width: 100%;
+        height: auto;
+        pointer-events: none;
+    }
+
+    &__item-data {
+        padding-left: 6px;
+        pointer-events: none;
+        flex: 1;
     }
 
     &__item-title {

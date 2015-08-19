@@ -29,9 +29,40 @@ export default class Game
                 response.on('data', chunk => res_data += chunk);
                 response.on('end', () => {
                     this.json = JSON.parse(res_data);
-                    resolve();
+                    this.getImage().then(() => resolve());
                 });
 
+            }).on('error', error => reject(error));
+        });
+    }
+
+    getImage()
+    {
+        return new Promise(resolve => {
+
+            let coverUrl = this.json.images[0].url;
+
+            http.get(coverUrl, response => {
+
+                var image_data = [];
+                response.setEncoding('binary');
+
+                response.on('data', chunk => {
+                    for (var i = 0; i < chunk.length; i++) {
+                        image_data.push(chunk.charCodeAt(i));
+                    }
+                });
+                response.on('end', () => {
+
+                    let type = response.headers['content-type'];
+                    let base64 = `data:${type};base64,` + new Buffer(image_data).toString('base64');
+
+                    APP.imageResizer.resize(base64).then(data => {
+                        this.json.images[0].base64 = data;
+                        resolve();
+                    });
+
+                });
             }).on('error', error => reject(error));
         });
     }
@@ -93,6 +124,7 @@ export default class Game
         this.el = APP.template.render('#gameListItem', {
             id: this.model.id,
             name: this.model.name,
+            cover: this.model.cover ? `src="${this.model.cover}"` : '',
             price: this.model.price !== null ? this.formatPrice(this.model.price) : '',
             plusPrice: this.model.plusPrice !== null ? this.formatPrice(this.model.plusPrice) : '',
             percent: this.formatPercent()
