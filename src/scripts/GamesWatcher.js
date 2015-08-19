@@ -11,6 +11,8 @@ export default class GamesWatcher
     gameList;
     interval;
 
+    updated;
+
     run(gameList)
     {
         this.gameList = gameList;
@@ -26,6 +28,8 @@ export default class GamesWatcher
 
     updateData(force = false)
     {
+        this.updated = 0;
+
         return new Promise(resolve => {
 
             let nowTime = (new Date).getTime();
@@ -63,9 +67,8 @@ export default class GamesWatcher
                             });
                         }
 
-                        // if last game
-                        if ((gamesCount - 1) === i)
-                        {
+                        if (this.isUpdated()) {
+
                             APP.notification.show({
                                 title: 'GamesWatcher',
                                 message: 'All games have been updated!'
@@ -81,6 +84,12 @@ export default class GamesWatcher
                 }, this.gerRandomDelay() * (i + 1));
             }
         });
+    }
+
+    isUpdated()
+    {
+        this.updated++;
+        return this.gameList.items.length === this.updated;
     }
 
     updateLastTime()
