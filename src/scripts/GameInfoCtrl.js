@@ -82,10 +82,11 @@ export default class GameInfoCtrl
 
     renderTimer()
     {
-        if (!this.game.json.release_date) return;
+        let playability_date = this.game.json.default_sku.playability_date || null;
+        if (!playability_date) return;
 
-        let release_date = new Date(this.game.json.release_date);
-        if (release_date <= new Date()) return;
+        let end = new Date(playability_date);
+        if (end <= new Date()) return;
 
         let second = 1000;
         let minute = second * 60;
@@ -97,7 +98,7 @@ export default class GameInfoCtrl
         let timer = window.setInterval(() => {
 
             let now = new Date();
-            let distance = release_date - now;
+            let distance = end - now;
 
             if (distance < 0)
             {
