@@ -16,6 +16,7 @@ export default class GamesWatcher
     run(gameList)
     {
         this.gameList = gameList;
+        this.renderLastUpdate();
         this.updateData();
 
         this.interval = setInterval(() => this.updateData(), this.CHECK_INTERVAL_TIME);
@@ -95,5 +96,17 @@ export default class GamesWatcher
     updateLastTime()
     {
         window.localStorage.lastUpdateTime = (new Date).getTime();
+        this.renderLastUpdate();
+    }
+
+    renderLastUpdate()
+    {
+        let lastUpdate = window.localStorage.lastUpdateTime || null;
+
+        if (lastUpdate != null)
+        {
+            let el = document.querySelector('#last-update');
+            el.textContent = (new Date(parseInt(lastUpdate, 10))).toLocaleString();
+        }
     }
 }

@@ -13,9 +13,9 @@
     "title": "psnTools",
     "toolbar": false,
     "width": 800,
-    "height": 500,
+    "height": 540,
     "min_width": 800,
-    "min_height": 500
+    "min_height": 540
   },
   "devDependencies": {
     "grunt": "^0.4.5",

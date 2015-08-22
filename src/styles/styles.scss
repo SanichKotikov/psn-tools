@@ -57,7 +57,7 @@ body {
 
 .btn {
     display: inline-block;
-    padding: 6px 10px;
+    padding: rem(6 10);
     cursor: pointer;
     border: 1px solid #aaa;
 }
@@ -95,6 +95,7 @@ body {
         position: relative;
         display: flex;
         cursor: pointer;
+        transition: color .3s;
         flex-flow: row wrap;
 
         & + & {
@@ -123,7 +124,7 @@ body {
     }
 
     &__item-data {
-        padding-left: 6px;
+        padding-left: rem(8);
         pointer-events: none;
         flex: 1;
     }
@@ -196,7 +197,7 @@ body {
 
     &__bar {
         width: 100%;
-        height: 40px;
+        height: rem(40);
         background: rgba(255, 255, 255, .1);
         flex: 0 1 auto;
 
@@ -220,7 +221,7 @@ body {
 
         .update-now {
             float: right;
-            padding: 0 16px;
+            padding: rem(0 16);
         }
     }
 }
@@ -235,6 +236,8 @@ body {
 .game-info {
     position: relative;
     padding: rem(16 20 40);
+    overflow-x: hidden;
+    overflow-y: scroll;
     flex: 1;
 
     &__name {
@@ -312,8 +315,8 @@ body {
     }
 
     &__message {
-        margin: 6px 0;
-        font-size: 12px;
+        margin: rem(6 0);
+        font-size: rem(12);
     }
 }
 
@@ -331,14 +334,32 @@ body {
     transform: translate(-50%, -50%);
 }
 
-.debug {
+
+.service {
     position: absolute;
     right: 0;
     bottom: 0;
     padding: rem(6);
     font-size: rem(10);
     color: #fff;
+    cursor: default;
     background: #666;
     border-top-left-radius: rem(3);
     opacity: .3;
+    transition: opacity .3s;
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.last-update {
+    display: inline-block;
+}
+
+.debug {
+    display: inline-block;
+    padding-left: 4px;
+    margin-left: 3px;
+    border-left: 1px solid rgba(255, 255, 255, .5);
 }
