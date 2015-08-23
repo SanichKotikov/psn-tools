@@ -1,4 +1,4 @@
-# psnTools
+# psnTools v.2.0
 
 Desktop application for tracking prices in PSN.
 
