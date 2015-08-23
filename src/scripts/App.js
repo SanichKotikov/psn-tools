@@ -6,10 +6,10 @@ let https = require('https');
 let fs = require('fs');
 let path = require('path');
 
-let Template = require('./dist/scripts/Template.js');
-let GameCtrl = require('./dist/scripts/GameCtrl.js');
-let NotificationCtrl = require('./dist/scripts/Notification.js');
+let Template = require('./dist/scripts/modules/Template.js');
+let NotificationCtrl = require('./dist/scripts/modules/Notification.js');
 let ImageResizer = require('./dist/scripts/modules/ImageResizer.js');
+let GamesCtrl = require('./dist/scripts/GamesCtrl.js');
 
 global.window = window;
 global.document = window.document;
@@ -35,7 +35,7 @@ class App
 
     win;
     template;
-    gameCtrl;
+    gamesCtrl;
     notification;
     imageResizer;
 
@@ -52,7 +52,7 @@ class App
         this.win.on('close', () => this.hide());
 
         this.template = new Template();
-        this.gameCtrl = new GameCtrl();
+        this.gamesCtrl = new GamesCtrl();
         this.notification = new NotificationCtrl();
         this.imageResizer = new ImageResizer({
             type: 'image/webp',

@@ -3,7 +3,7 @@
 let GamesDataXML = require('./GamesDataXML.js');
 let Game = require('./Game.js');
 
-export default class GameList
+export default class GamesList
 {
     items;
     dataXml;

@@ -1,15 +1,15 @@
 'use strict';
 
-let GameList = require('./GameList.js');
+let GamesList = require('./GamesList.js');
 let GameInfoCtrl = require('./GameInfoCtrl.js');
 let GamesWatcher = require('./GamesWatcher.js');
 
-export default class GameCtrl
+export default class GamesCtrl
 {
     ELEMENT_ID = '#game-list-wrapper';
     ELEMENT_LIST_ID = '#game-list';
 
-    gameList;
+    gamesList;
     gameInfoCtrl;
     gamesWatcher;
 
@@ -18,7 +18,7 @@ export default class GameCtrl
 
     constructor()
     {
-        this.gameList = new GameList();
+        this.gamesList = new GamesList();
         this.gameInfoCtrl = new GameInfoCtrl();
         this.gamesWatcher = new GamesWatcher();
 
@@ -27,10 +27,10 @@ export default class GameCtrl
 
         this.bindEvents();
 
-        this.gameList.fromXml()
+        this.gamesList.fromXml()
             .then(() => {
                 this.renderList();
-                this.gamesWatcher.run(this.gameList);
+                this.gamesWatcher.run(this.gamesList);
             }, error => console.log(error.message, error)
         );
     }
@@ -64,7 +64,7 @@ export default class GameCtrl
     onClickItem(target)
     {
         let id = target.getAttribute('id');
-        let game = this.gameList.item(id);
+        let game = this.gamesList.item(id);
 
         this.gameInfoCtrl.load(game);
     }
@@ -76,7 +76,7 @@ export default class GameCtrl
             let item = target.parentNode;
             let id = item.getAttribute('id');
 
-            this.gameList.remove(id)
+            this.gamesList.remove(id)
                 .then(() => {
 
                     this.list_el.removeChild(item);
@@ -90,10 +90,10 @@ export default class GameCtrl
 
         if (input)
         {
-            this.gameList.add(input)
+            this.gamesList.add(input)
                 .then(game => {
                     this.list_el.appendChild(game.render());
-                    this.gameList.toXml();
+                    this.gamesList.toXml();
                 }, () => {
                     APP.notification.show({
                         title: 'Alert',
@@ -115,7 +115,7 @@ export default class GameCtrl
     {
         let fragment = document.createDocumentFragment();
 
-        this.gameList.items.forEach((game) => {
+        this.gamesList.items.forEach((game) => {
             fragment.appendChild(game.render());
         });
 

@@ -8,14 +8,14 @@ export default class GamesWatcher
     DELAY_MIN = 500; //ms
     DELAY_MAX = 3000; //ms
 
-    gameList;
+    gamesList;
     interval;
 
     updated;
 
-    run(gameList)
+    run(gamesList)
     {
-        this.gameList = gameList;
+        this.gamesList = gamesList;
         this.renderLastUpdate();
         this.updateData();
 
@@ -43,7 +43,7 @@ export default class GamesWatcher
             }
 
             this.updateLastTime();
-            let games = this.gameList.items;
+            let games = this.gamesList.items;
             let gamesCount = games.length;
 
             for (let i = 0; i < gamesCount; i++)
@@ -76,7 +76,7 @@ export default class GamesWatcher
                             });
 
                             // update all games in any case
-                            this.gameList.toXml();
+                            this.gamesList.toXml();
 
                             resolve();
                         }
@@ -90,7 +90,7 @@ export default class GamesWatcher
     isUpdated()
     {
         this.updated++;
-        return this.gameList.items.length === this.updated;
+        return this.gamesList.items.length === this.updated;
     }
 
     updateLastTime()
