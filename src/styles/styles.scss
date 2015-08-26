@@ -342,7 +342,7 @@ body {
     padding: rem(6);
     font-size: rem(10);
     color: #fff;
-    cursor: default;
+    cursor: pointer;
     background: #666;
     border-top-left-radius: rem(3);
     opacity: .3;
@@ -355,11 +355,13 @@ body {
 
 .last-update {
     display: inline-block;
+    pointer-events: none;
 }
 
 .debug {
     display: inline-block;
     padding-left: 4px;
     margin-left: 3px;
+    pointer-events: none;
     border-left: 1px solid rgba(255, 255, 255, .5);
 }

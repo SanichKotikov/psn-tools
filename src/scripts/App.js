@@ -51,6 +51,8 @@ class App
         gui.App.on('reopen', () => this.show());
         this.win.on('close', () => this.hide());
 
+        this.onClickService();
+
         this.template = new Template();
         this.gamesCtrl = new GamesCtrl();
         this.notification = new NotificationCtrl();
@@ -104,6 +106,18 @@ class App
         menu.append(quitItem);
 
         tray.menu = menu;
+    }
+
+    onClickService()
+    {
+        document.addEventListener('click', event => {
+            let target = event.target;
+
+            if (target.classList.contains('js-service'))
+            {
+                this.win.showDevTools();
+            }
+        }, false);
     }
 }
 

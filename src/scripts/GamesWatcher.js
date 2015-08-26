@@ -42,6 +42,8 @@ export default class GamesWatcher
                 return;
             }
 
+            console.log('Update started');
+
             this.updateLastTime();
             let games = this.gamesList.items;
             let gamesCount = games.length;
@@ -70,6 +72,8 @@ export default class GamesWatcher
 
                         if (this.isUpdated()) {
 
+                            console.log('Update ended');
+
                             APP.notification.show({
                                 title: 'GamesWatcher',
                                 message: 'All games have been updated!'
@@ -80,6 +84,8 @@ export default class GamesWatcher
 
                             resolve();
                         }
+
+                        console.log(this.updated, game.model.name);
                     });
 
                 }, this.gerRandomDelay() * (i + 1));
