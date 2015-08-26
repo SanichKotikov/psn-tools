@@ -105,6 +105,10 @@ body {
         &:hover {
             color: #eee;
         }
+
+        &.deprecated {
+            opacity: .3;
+        }
     }
 
     &__item-cover {

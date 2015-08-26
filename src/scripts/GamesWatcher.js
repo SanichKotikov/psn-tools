@@ -71,21 +71,26 @@ export default class GamesWatcher
                         }
 
                         if (this.isUpdated()) {
-
-                            console.log('Update ended');
-
-                            APP.notification.show({
-                                title: 'GamesWatcher',
-                                message: 'All games have been updated!'
-                            });
-
-                            // update all games in any case
-                            this.gamesList.toXml();
-
+                            this.afterUpdate();
                             resolve();
                         }
 
                         console.log(this.updated, game.model.name);
+
+                    }, error => {
+
+                        console.log(this.updated, game.model.name, error);
+
+                        if (error && error.codeName && error.codeName == 'DataNotFound')
+                        {
+                            // Set this game as deprecated
+                            game.markAsDeprecated();
+                        }
+
+                        if (this.isUpdated()) {
+                            this.afterUpdate();
+                            resolve();
+                        }
                     });
 
                 }, this.gerRandomDelay() * (i + 1));
@@ -97,6 +102,19 @@ export default class GamesWatcher
     {
         this.updated++;
         return this.gamesList.items.length === this.updated;
+    }
+
+    afterUpdate()
+    {
+        console.log('Update ended');
+
+        APP.notification.show({
+            title: 'GamesWatcher',
+            message: 'All games have been updated!'
+        });
+
+        // update all games in any case
+        this.gamesList.toXml();
     }
 
     updateLastTime()

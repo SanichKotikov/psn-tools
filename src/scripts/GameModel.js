@@ -7,6 +7,7 @@ export default class GameModel
     cover;
     price;
     plusPrice;
+    deprecated;
     history;
 
     constructor(data)
@@ -16,6 +17,7 @@ export default class GameModel
         this.cover = data.cover || null;
         this.price = data.price ? parseInt(data.price, 10) : null;
         this.plusPrice = data.plusPrice ? parseInt(data.plusPrice, 10) : null;
+        this.deprecated = data.deprecated ? true : false;
         this.history = data.history || [];
     }
 

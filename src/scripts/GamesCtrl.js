@@ -66,7 +66,14 @@ export default class GamesCtrl
         let id = target.getAttribute('id');
         let game = this.gamesList.item(id);
 
-        this.gameInfoCtrl.load(game);
+        if (game.mode.deprecated)
+        {
+            // update ID
+        }
+        else
+        {
+            this.gameInfoCtrl.load(game);
+        }
     }
 
     onClickDelete(target)

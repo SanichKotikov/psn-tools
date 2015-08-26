@@ -28,8 +28,17 @@ export default class Game
                 let res_data = '';
                 response.on('data', chunk => res_data += chunk);
                 response.on('end', () => {
-                    this.json = JSON.parse(res_data);
-                    this.getImage().then(() => resolve());
+                    let json_data = JSON.parse(res_data);
+
+                    if (json_data.errorCode)
+                    {
+                        reject(json_data);
+                    }
+                    else
+                    {
+                        this.json = json_data;
+                        this.getImage().then(() => resolve());
+                    }
                 });
 
             }).on('error', error => reject(error));
@@ -81,6 +90,11 @@ export default class Game
         this.model.pushHistory();
     }
 
+    markAsDeprecated()
+    {
+        this.model.deprecated = true;
+    }
+
     formatPrice(num)
     {
         return (num == null) ? '–' : (num / 100) + ' \u20bd';
@@ -123,6 +137,7 @@ export default class Game
     {
         this.el = APP.template.render('#gameListItem', {
             id: this.model.id,
+            class: this.model.deprecated ? 'deprecated' : '',
             name: this.model.name,
             cover: this.model.cover ? `src="${this.model.cover}"` : '',
             price: this.model.price !== null ? this.formatPrice(this.model.price) : '',
