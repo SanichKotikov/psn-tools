@@ -80,9 +80,8 @@ export default class Game
     {
         this.model.update(this.json);
 
-        // update item in list
-        let item = document.getElementById(this.model.id);
-        if (item) item.parentNode.replaceChild(this.render(), item);
+        let id = this.model.oldId ? this.model.oldId : this.model.id;
+        this.replaceRender(id);
     }
 
     pushHistory()
@@ -93,6 +92,7 @@ export default class Game
     markAsDeprecated()
     {
         this.model.deprecated = true;
+        this.replaceRender(this.model.id);
     }
 
     formatPrice(num)
@@ -133,6 +133,12 @@ export default class Game
         return '';
     }
 
+    replaceRender(id)
+    {
+        let item = document.getElementById(id);
+        if (item) item.parentNode.replaceChild(this.render(), item);
+    }
+
     render()
     {
         this.el = APP.template.render('#gameListItem', {
@@ -150,15 +156,6 @@ export default class Game
 
     renderInfo()
     {
-        //let platforms = this.json.playable_platform;
-        //
-        //if (platforms)
-        //{
-        //    platforms.forEach(platform => {
-        //        title.appendChild(createEl('div', { 'class': 'game-info__platform' }, platform));
-        //    });
-        //}
-
         return APP.template.render('#gameInfo', {
             //platform: '',
             name: this.model.name,

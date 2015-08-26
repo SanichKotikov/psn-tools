@@ -43,7 +43,6 @@ export default class GamesWatcher
             }
 
             console.log('Update started');
-
             this.updateLastTime();
             let games = this.gamesList.items;
             let gamesCount = games.length;
@@ -51,31 +50,28 @@ export default class GamesWatcher
             for (let i = 0; i < gamesCount; i++)
             {
                 window.setTimeout(() => {
-
                     let game = games[i];
                     let oldPrice = game.model.price;
                     let oldPlusPrice = (game.model.plusPrice != null) ? game.model.plusPrice : null;
 
                     game.getData().then(() => {
-
                         game.updateModel();
 
                         if (oldPrice !== game.model.price || oldPlusPrice !== game.model.plusPrice)
                         {
                             game.pushHistory();
-
                             new Notification('Price updated!', {
                                 icon: null,
                                 body: `Game ${game.model.name} price updated!`
                             });
                         }
 
+                        console.log(this.updated, game.model.name);
+
                         if (this.isUpdated()) {
                             this.afterUpdate();
                             resolve();
                         }
-
-                        console.log(this.updated, game.model.name);
 
                     }, error => {
 
@@ -83,7 +79,6 @@ export default class GamesWatcher
 
                         if (error && error.codeName && error.codeName == 'DataNotFound')
                         {
-                            // Set this game as deprecated
                             game.markAsDeprecated();
                         }
 
@@ -113,7 +108,6 @@ export default class GamesWatcher
             message: 'All games have been updated!'
         });
 
-        // update all games in any case
         this.gamesList.toXml();
     }
 

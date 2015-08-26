@@ -17,7 +17,7 @@ export default class GameModel
         this.cover = data.cover || null;
         this.price = data.price ? parseInt(data.price, 10) : null;
         this.plusPrice = data.plusPrice ? parseInt(data.plusPrice, 10) : null;
-        this.deprecated = data.deprecated ? true : false;
+        this.deprecated = data.deprecated && data.deprecated == 'true' ? true : false;
         this.history = data.history || [];
     }
 
@@ -29,6 +29,7 @@ export default class GameModel
         this.name = json.name;
         this.cover = json.images[0].base64;
         this.price = sku.price;
+        this.deprecated = false;
 
         if (sku.rewards && sku.rewards.length)
         {

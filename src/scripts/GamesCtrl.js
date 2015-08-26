@@ -66,9 +66,18 @@ export default class GamesCtrl
         let id = target.getAttribute('id');
         let game = this.gamesList.item(id);
 
-        if (game.mode.deprecated)
+        if (game.model.deprecated)
         {
-            // update ID
+            let input = window.prompt('This game is deprecated!\nInput new Game PSN ID');
+            if (input)
+            {
+                game.model.oldId = game.model.id;
+                game.model.id = input;
+                this.gameInfoCtrl.load(game).then(() => {
+                    delete game.model.oldId;
+                    this.gamesList.toXml();
+                });
+            }
         }
         else
         {

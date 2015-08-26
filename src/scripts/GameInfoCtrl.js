@@ -15,23 +15,39 @@ export default class GameInfoCtrl
 
     load(game)
     {
-        this.game = game;
-        this.render();
+        return new Promise(resolve => {
+            this.game = game;
+            this.render().then(() => resolve());
+        });
     }
 
     render()
     {
-        this.el.innerHTML = '';
-        this.el.appendChild(this.renderLoader());
-
-        this.game.getData().then(() => {
-            this.game.updateModel();
-
+        return new Promise(resolve => {
             this.el.innerHTML = '';
-            this.el.appendChild(this.game.renderInfo());
+            this.el.appendChild(this.renderLoader());
 
-            this.renderChart();
-            this.renderTimer();
+            this.game.getData().then(() => {
+                this.game.updateModel();
+
+                this.el.innerHTML = '';
+                this.el.appendChild(this.game.renderInfo());
+
+                this.renderChart();
+                this.renderTimer();
+
+                resolve();
+
+            }, error => {
+
+                if (error && error.codeName && error.codeName == 'DataNotFound')
+                {
+                    // Set this game as deprecated
+                    this.game.markAsDeprecated();
+                    this.el.innerHTML = '';
+                    resolve();
+                }
+            });
         });
     }
 
