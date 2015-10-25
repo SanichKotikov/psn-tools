@@ -120,6 +120,7 @@ module.exports = function(grunt) {
 
         nwjs: {
             options: {
+                version: '0.12.2', // override version so it stops trying to download the latest
                 platforms: ['osx', 'win'],
                 buildDir: './builds',
                 cacheDir: './cache',

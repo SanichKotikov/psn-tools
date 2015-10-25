@@ -68,6 +68,7 @@ export default class GamesCtrl
 
         if (game.model.deprecated)
         {
+            //todo: не добавляет историю, если цена изменилась
             let input = window.prompt('This game is deprecated!\nInput new Game PSN ID');
             if (input)
             {

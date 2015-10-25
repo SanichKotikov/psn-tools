@@ -23,7 +23,13 @@ export default class GameModel
 
     update(json)
     {
-        let sku = json.default_sku;
+        if (!json.default_sku) {
+            this.deprecated = true;
+            return;
+        }
+
+        const now = new Date();
+        const sku = json.default_sku;
         let hasPlusReward = false;
 
         this.name = json.name;
@@ -40,7 +46,19 @@ export default class GameModel
                 {
                     this.plusPrice = reward.price;
                     hasPlusReward = true;
-                    break;
+                }
+                else if (reward.campaigns && reward.campaigns.length && reward.campaigns[0])
+                {
+                    const campaign = reward.campaigns[0];
+                    if (now > new Date(campaign.start_date) && now < new Date(campaign.end_date))
+                    {
+                        this.price = reward.price;
+                        if (reward.bonus_price)
+                        {
+                            this.plusPrice = reward.bonus_price;
+                            hasPlusReward = true;
+                        }
+                    }
                 }
             }
         }

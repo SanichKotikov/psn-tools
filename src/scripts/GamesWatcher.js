@@ -49,8 +49,9 @@ export default class GamesWatcher
 
             for (let i = 0; i < gamesCount; i++)
             {
+                const game = games[i];
+
                 window.setTimeout(() => {
-                    let game = games[i];
                     let oldPrice = game.model.price;
                     let oldPlusPrice = (game.model.plusPrice != null) ? game.model.plusPrice : null;
 
