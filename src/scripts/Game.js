@@ -25,6 +25,8 @@ export default class Game
 
             https.get(url, response => {
 
+                response.setEncoding('utf8');
+
                 let res_data = '';
                 response.on('data', chunk => res_data += chunk);
                 response.on('end', () => {
@@ -37,7 +39,13 @@ export default class Game
                     else
                     {
                         this.json = json_data;
-                        this.getImage().then(() => resolve());
+                        this.getImage()
+                            .then(() => resolve())
+                            .catch(error => {
+                                console.warn(`Error in getting cover for ${this.json.name}:`, this.json);
+                                console.error(error.message);
+                                resolve();
+                            });
                     }
                 });
 
@@ -47,7 +55,7 @@ export default class Game
 
     getImage()
     {
-        return new Promise(resolve => {
+        return new Promise((resolve, reject) => {
 
             let coverUrl = this.json.images[0].url;
 
